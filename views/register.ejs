@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sign up Form</title>
+    <link rel="form icon" type="image/x-icon" href="favicon.png">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style type="text/css">
+
+    *{
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+      img{
+        width: 40px;
+        height: 40px;
+      }
+
+      nav li{
+        display: inline-block;
+      }
+
+      li > a{
+        color: white;
+        text-decoration: none;
+        margin: 20px !important;
+      }
+
+      nav{
+        display: inline-block;
+      }
+
+      #gender{
+        width: 210px;
+      }
+
+      .navbar{
+        background: #273b7a;
+        color: white;
+        width: 100%;
+        border-radius: 15px;
+        text-align: center;
+      }
+
+      input, select, textarea{
+        display: block;
+        width: 50%;
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+      }
+
+      select{
+        width: 50% !important;
+
+      }
+
+      .checkbox{
+        align-content: center;
+      }
+
+      .submitBtn{
+        height: 40px !important;
+        width: 115px !important;
+        color: white !important;
+        background: #273b7a !important;
+        border-radius: 6px !important;
+        border: none !important;
+        cursor: pointer !important;
+        font-weight: 400 !important;
+        text-align: center !important;
+      }
+
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <ul>
+        <li>
+          <a href="#">
+            <img src="favicon.png">
+          </a>
+        </li>
+        <div>
+          <li>
+            <a href="#"><b>Home</b></a>
+          </li>
+          <li>
+            <a href="#"><b>Help</b></a>
+          </li>
+          <li>
+            <a href="#"><b>Support</b></a>
+          </li>
+        </div>
+      </ul>
+    </nav>
+    <div align="center">
+      <h1>Sign up form</h1>
+      <h3><i>fill the following credientials carefully</i></h3>
+    </div>
+    <pre>
+      <div align="center">
+        <!-- <div id = "displayErrors" class="d-none" style="color: red;">
+           already exists in our record
+        </div> -->
+        <form id = "myForm" action="/users/register" method="POST">
+          <section id="personalInfo">
+            <label for="fname">Name*</label>
+            <input id="fname" name="name" class = "name" type="text" placeholder="name">
+            <label for="email">Email*</label>
+            <input id="email" name="email" type="email" placeholder="abc@test.com">
+            <span style="color: #495057; font-size: 12px;">We will share your email with others</span>
+           
+          </section>
+          <section id="securityInfo">
+            <label for="pass">Password</label>
+            <input id="pass" name="password" type="password" placeholder="password">
+            <label for="cpass">Confirm Password</label>
+            <input id="cpass" type="password" placeholder="confirm password">
+            <div id="pass_message"></div>
+          </section>
+          <button type="submit" class="submitBtn">Submit</button>
+        </form>
+      </div>
+    </pre>
+  </body>
+</html>
+<script type="text/javascript">
+  $('#pass, #cpass').on('keyup', function (){
+    if ($('#pass').val() == $('#cpass').val())
+    {
+       $('#pass_message').html('<img src="/public/success.png"><h4 style="color: green;">Password Matched</h4>');
+    }
+    else
+    {
+      $('#pass_message').html('<img src="/public/failuer.png"><h4 style="color: red;">Kindly Match The Password</h4>');
+    }
+
+  });
+</script>
