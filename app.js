@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require("mongoose");
 const passport = require("passport");// auth
 const app = express()
-const port = 3000 // my local port
+const port = 3000 
 
 const db = require('./config/database').mongoURI;
 mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
