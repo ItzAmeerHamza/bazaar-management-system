@@ -8,7 +8,8 @@ const db = require('./config/database').mongoURI;
 mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
-  
+
+  app.use(express.static(__dirname + '/assets'));
   // templating engine
   app.set('view engine', 'ejs');
   // urls

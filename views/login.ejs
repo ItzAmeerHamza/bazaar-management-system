@@ -1,137 +1,82 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Sign up Form</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Connect Plus</title>
+    <!-- <title>Sign up Form</title> -->
     <link rel="form icon" type="image/x-icon" href="favicon.png">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <style type="text/css">
-
-    *{
-      font-family: Arial, Helvetica, sans-serif;
-    }
-
-      img{
-        width: 40px;
-        height: 40px;
-      }
-
-      nav li{
-        display: inline-block;
-      }
-
-      li > a{
-        color: white;
-        text-decoration: none;
-        margin: 20px !important;
-      }
-
-      nav{
-        display: inline-block;
-      }
-
-      #gender{
-        width: 210px;
-      }
-
-      .navbar{
-        background: #273b7a;
-        color: white;
-        width: 100%;
-        border-radius: 15px;
-        text-align: center;
-      }
-
-      input, select, textarea{
-        display: block;
-        width: 50%;
-        padding: .375rem .75rem;
-        font-size: 1rem;
-        line-height: 1.5;
-        color: #495057;
-        background-color: #fff;
-        background-clip: padding-box;
-        border: 1px solid #ced4da;
-        border-radius: .25rem;
-      }
-
-      select{
-        width: 50% !important;
-
-      }
-
-      .checkbox{
-        align-content: center;
-      }
-
-      .submitBtn{
-        height: 40px !important;
-        width: 115px !important;
-        color: white !important;
-        background: #273b7a !important;
-        border-radius: 6px !important;
-        border: none !important;
-        cursor: pointer !important;
-        font-weight: 400 !important;
-        text-align: center !important;
-      }
-
-    </style>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="../stylessheets/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../stylessheets/css/flag-icon.min.css">
+    <link rel="stylesheet" href="../stylessheets/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="../vendors/css/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="../stylessheets/css/style.css">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="../images/favicon.png" />
   </head>
   <body>
-    <nav class="navbar">
-      <ul>
-        <li>
-          <a href="#">
-            <img src="favicon.png">
-          </a>
-        </li>
-        <div>
-          <li>
-            <a href="#"><b>Home</b></a>
-          </li>
-          <li>
-            <a href="#"><b>Help</b></a>
-          </li>
-          <li>
-            <a href="#"><b>Support</b></a>
-          </li>
+    <div class="container-scroller">
+      <div class="container-fluid page-body-wrapper full-page-wrapper">
+        <div class="content-wrapper d-flex align-items-center auth">
+          <div class="row flex-grow">
+            <div class="col-lg-4 mx-auto">
+              <div class="auth-form-light text-left p-5">
+                <div class="brand-logo">
+                  <img src="../images/logo-dark.svg">
+                </div>
+                <h4>Hello! let's get started</h4>
+                <h6 class="font-weight-light">Sign in to continue.</h6>
+                <form class="pt-3" id = "myForm" action="/users/login" method="POST">
+                  <div class="form-group">
+                    <input type="email" name="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Type here">
+                  </div>
+                  <div class="form-group">
+                    <input type="password" name="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Type here">
+                  </div>
+                  <div class="mt-3">
+                    <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" href="../../index.html">SIGN IN</a>
+                  </div>
+                  <div class="my-2 d-flex justify-content-between align-items-center">
+                    <div class="form-check">
+                      <label class="form-check-label text-muted">
+                        <input type="checkbox" class="form-check-input"> Keep me signed in </label>
+                    </div>
+                    <a href="#" class="auth-link text-black">Forgot password?</a>
+                  </div>
+                  <div class="mb-2">
+                    <button type="button" class="btn btn-block btn-facebook auth-form-btn">
+                      <i class="mdi mdi-facebook mr-2"></i>Connect using facebook </button>
+                  </div>
+                  <div class="text-center mt-4 font-weight-light"> Don't have an account? <a href="register.html" class="text-primary">Create</a>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
-      </ul>
-    </nav>
-    <div align="center">
-      <h1>Sign in</h1>
-      <h3><i>Welcome to our community</i></h3>
-    </div>
-    <pre>
-      <div align="center">
-        <!-- <div id = "displayErrors" class="d-none" style="color: red;">
-           already exists in our record
-        </div> -->
-        <form id = "myForm" action="/users/login" method="POST">
-          <section id="personalInfo">
-            <label for="email">Email*</label>
-            <input id="email" name="email" type="email" placeholder="abc@test.com">
-          </section>
-          <section id="securityInfo">
-            <label for="pass">Password</label>
-            <input id="pass" name="password" type="password" placeholder="password">
-          </section>
-          <button type="submit" class="submitBtn">Submit</button>
-        </form>
+        <!-- content-wrapper ends -->
       </div>
-    </pre>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="../js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="../js/off-canvas.js"></script>
+    <script src="../js/hoverable-collapse.js"></script>
+    <script src="../js/misc.js"></script>
+    <!-- endinject -->
   </body>
 </html>
-<script type="text/javascript">
-  $('#pass, #cpass').on('keyup', function (){
-    if ($('#pass').val() == $('#cpass').val())
-    {
-       $('#pass_message').html('<img src="/public/success.png"><h4 style="color: green;">Password Matched</h4>');
-    }
-    else
-    {
-      $('#pass_message').html('<img src="/public/failuer.png"><h4 style="color: red;">Kindly Match The Password</h4>');
-    }
-
-  });
-</script>
