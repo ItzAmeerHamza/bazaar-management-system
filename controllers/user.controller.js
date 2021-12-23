@@ -10,33 +10,41 @@ exports.register = (req, res) =>
 
   // handles the post request
 exports.registerUser = (req, res) => {
-    const { name, email, password, birthdate = Date.now, user_type = 'vendor' } = req.body;
+    const { name, email, password, country, gender, description, user_image, user_type = 'vendor' } = req.body;
     let errors = [];
-    User.findOne({ email: email }).then(user => {
+    console.log(name, email, password, country, gender, description, user_image, user_type );
+    User.findOne({ email: email, name: name }).then(user => {
         if (user) {
-            console.log("Email already exists");
+          errors.push({msg: "User already exist please go to sign in page"});
+            console.log(errors);
             res.render("register", {
             errors,
             name,
             email,
             password,
-            birthdate,
             user_type
           });
 
         } else {
-          console.log("Creating a new vendor");
-          const newUser = new User({
-            name,
-            email,
-            password,
-            birthdate,
-            user_type
-          });
-          console.log(newUser);
-          newUser.save();
-          console.log("Successfully saved vendor in Database")
-          res.render('dashboard.ejs', {newUser});
+          if(name != '' && email != '' && password != ''){
+            
+            console.log("Creating a new vendor");
+            const newUser = new User({
+              name,
+              email,
+              country,
+              gender,
+              description,
+              user_image,
+              password,
+              user_type
+            });
+            console.log(newUser);
+            newUser.save().then(function(product) {
+              console.log("Successfully saved vendor in Database")
+              res.render('dashboard.ejs', {newUser});
+           });
+          }
         }
     });
 };

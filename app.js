@@ -18,6 +18,9 @@ mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
 app.use("/", require("./routes/index.js"));
 app.use("/users", require("./routes/users.js"));
 
+const multer = require("multer");
+
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 });

@@ -46,7 +46,7 @@
                   </div>
                   <div class="form-group">
                     <label for="country">Country</label>
-                    <select class="form-control form-control-lg" id="country">
+                    <select class="form-control form-control-lg" name="country" id="country">
                       <option>Country</option>
                       <option>United States of America</option>
                       <option>United Kingdom</option>
@@ -55,6 +55,27 @@
                       <option>Argentina</option>
                       <option>Pakistan</option>
                     </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleSelectGender">Gender</label>
+                    <select class="form-control" name="gender" id="exampleSelectGender">
+                      <option>Male</option>
+                      <option>Female</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>File upload</label>
+                    <input type="file" name="img[]" class="file-upload-default">
+                    <div class="input-group col-xs-12">
+                      <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
+                      <span class="input-group-append">
+                        <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleTextarea1">Description</label>
+                    <textarea class="form-control" name="description" id="exampleTextarea1" rows="4"></textarea>
                   </div>
                   <div id="securityInfo">
                     <div class="form-group">
@@ -93,6 +114,7 @@
     <!-- End plugin js for this page -->
     <!-- inject:js -->
     <script src="../js/off-canvas.js"></script>
+    <script src="../js/upload_picture.js"></script>
     <script src="../js/hoverable-collapse.js"></script>
     <script src="../js/misc.js"></script>
     <!-- endinject -->
