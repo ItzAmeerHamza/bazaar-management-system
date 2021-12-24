@@ -15,15 +15,18 @@ exports.registerUser = (req, res) => {
     console.log(name, email, password, country, gender, description, user_image, user_type );
     User.findOne({ email: email, name: name }).then(user => {
         if (user) {
+          console.log('This is user already exist');
           errors.push({msg: "User already exist please go to sign in page"});
-            console.log(errors);
-            res.render("register", {
-            errors,
-            name,
-            email,
-            password,
-            user_type
-          });
+          req.flash('error_msg', 'Your Account Already Exists, please log in to with your account');
+          res.locals.messages = req.flash();
+          console.log(errors);
+          res.render("register", {
+          errors,
+          name,
+          email,
+          password,
+          user_type
+        });
 
         } else {
           if(name != '' && email != '' && password != ''){
@@ -40,7 +43,9 @@ exports.registerUser = (req, res) => {
               user_type
             });
             console.log(newUser);
-            newUser.save().then(function(product) {
+            newUser.save().then(function(newUser) {
+              req.flash('success_msg', 'Your Account Has Been Registered, you can log in now');
+              res.locals.messages = req.flash();
               console.log("Successfully saved vendor in Database")
               res.render('dashboard.ejs', {newUser});
            });
