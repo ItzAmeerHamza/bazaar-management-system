@@ -22,6 +22,8 @@ mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
   app.use(flash()); // use connect-flash for flash messages stored in session
 
   app.use(express.static(__dirname + '/assets'));
+  app.use(express.static(__dirname + '/mailer'));
+
   // templating engine
   app.set('view engine', 'ejs');
   // urls

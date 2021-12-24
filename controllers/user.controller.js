@@ -1,3 +1,6 @@
+//Email Transpoter
+const transporter = require('../mailer/mailer.js');
+
 const passport = require("passport");
 // user model
 const User = require('../models/user');
@@ -48,6 +51,21 @@ exports.registerUser = (req, res) => {
               res.locals.messages = req.flash();
               console.log("Successfully saved vendor in Database")
               res.render('dashboard.ejs', {newUser});
+              //Welcome Email
+              const options = {
+                from: process.env.AUTH_USER,
+                to: email,
+                subject: "Welcome to Online",
+                text: "Thank you for joining us. Hope you have a bussiness with us!"
+              };
+    
+              transporter.sendMail(options,  function(err, info){
+                if(err){
+                  console.log(err);
+                  return;
+                }
+                console.log("sent:" + info.response);
+              });
            });
           }
         }
