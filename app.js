@@ -49,6 +49,6 @@ app.use("/users", require("./routes/users.js"));
 
 
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+app.listen(port || process.env.PORT, () => {
+  console.log(`Example app listening at http://localhost:${port}`, app.settings.env)
 });
