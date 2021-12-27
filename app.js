@@ -4,6 +4,13 @@ const passport = require("passport");// auth
 const cookieParser = require('cookie-parser');
 const flash = require('connect-flash');
 const session = require('express-session');
+const LocalStrategy = require("passport-local").Strategy;
+
+const mongoStore = require('connect-mongo');
+const jwt=require('jsonwebtoken');
+const bcrypt=require('bcrypt');
+//firebase Firestore.
+const multer = require("multer");
 const app = express()
 const port = 3000 
 
@@ -17,13 +24,21 @@ mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
     cookie: { maxAge: 60000 },
     secret: process.env.MY_SECRET || "secret",
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
+    store: mongoStore.create({
+      mongoUrl: 'mongodb://localhost:27017/TestDb'
+  })
   }));
+
+  app.use(passport.initialize());
+  app.use(passport.session());
+
   app.use(flash()); // use connect-flash for flash messages stored in session
 
   app.use(express.static(__dirname + '/assets'));
   app.use(express.static(__dirname + '/mailer'));
 
+  app.use(express.static(__dirname + '/public'));
   // templating engine
   app.set('view engine', 'ejs');
   // urls
@@ -32,7 +47,6 @@ mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
 app.use("/", require("./routes/index.js"));
 app.use("/users", require("./routes/users.js"));
 
-const multer = require("multer");
 
 
 app.listen(port, () => {

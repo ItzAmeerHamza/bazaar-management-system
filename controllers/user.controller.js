@@ -13,7 +13,10 @@ exports.register = (req, res) =>
 
   // handles the post request
 exports.registerUser = (req, res) => {
-    const { name, email, password, country, gender, description, user_image, user_type = 'vendor' } = req.body;
+    const { name, email, password, country, gender, user_image, description, user_type = 'vendor' } = req.body;
+    if(req.file){
+      user_image = req.file.path;
+    }
     let errors = [];
     console.log(name, email, password, country, gender, description, user_image, user_type );
     User.findOne({ email: email, name: name }).then(user => {
@@ -43,14 +46,15 @@ exports.registerUser = (req, res) => {
               description,
               user_image,
               password,
-              user_type
+              user_type,
             });
             console.log(newUser);
             newUser.save().then(function(newUser) {
               req.flash('success_msg', 'Your Account Has Been Registered, you can log in now');
               res.locals.messages = req.flash();
               console.log("Successfully saved vendor in Database")
-              res.render('dashboard.ejs', {newUser});
+              res.redirect("/users/login");
+              // res.render('login.ejs');
               //Welcome Email
               const options = {
                 from: process.env.AUTH_USER,
@@ -58,7 +62,6 @@ exports.registerUser = (req, res) => {
                 subject: "Welcome to Online",
                 text: "Thank you for joining us. Hope you have a bussiness with us!"
               };
-    
               transporter.sendMail(options,  function(err, info){
                 if(err){
                   console.log(err);
@@ -66,7 +69,20 @@ exports.registerUser = (req, res) => {
                 }
                 console.log("sent:" + info.response);
               });
-           });
+           })
+           .catch(error => {
+            console.log("Error Adding new User", error);
+            req.flash('error_msg', 'This email already exist in our record, please go to log in page');
+            res.locals.messages = req.flash();
+            console.log(errors);
+            res.render("register", {
+            errors,
+            name,
+            email,
+            password,
+            user_type
+          });
+          })
           }
         }
     });
