@@ -106,4 +106,3 @@ exports.logout = (req, res) => {
   console.log("You are logged out");
   res.redirect("/users/login");
 };
-
