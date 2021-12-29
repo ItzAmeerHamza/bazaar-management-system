@@ -5,6 +5,10 @@ const passport = require("passport");
 // user model
 const User = require('../models/user');
 
+// user model
+const Otp = require('../models/otp');
+// const otp = require('../models/opt.js');./
+
 //Handles the get request
 exports.register = (req, res) =>
   res.render("register", {locale: {"name": '', "email": ''},
@@ -90,4 +94,67 @@ exports.logout = (req, res) => {
   console.log("You are logged out");
   res.redirect("/users/login");
 };
+
+exports.emailSend = (req, res) =>{
+  const responseType = {};
+  User.findOne({ email: req.body.email }).then(user => {
+    if(user){
+      let optcode = Math.floor((Math.random()*10000)+1);
+      let otpData = new Otp({
+        email:req.body.email,
+        code:optcode,
+        expireTime: new Date().getTime() + 300*1000
+      })
+      let otpResponse =  otpData.save();
+      responseType.statusText = 'Success'
+      responseType.message = 'Please Check Your Email ID';
+    }else{
+      responseType.statusText = 'error'
+      responseType.message = 'Email ID Not Exist';
+    }
+    res.status(200).json(responseType);
+  });
+}
+
+exports.changePassword = (req, res) =>{
+  // let data = Otp.find({email:req.body.email, code: req.body.otpCode});
+  const  response = {}
+
+  Otp.findOne({ email: req.body.email, code: req.body.otpCode}).then(fetch_otp => {
+  if(fetch_otp){
+    let currentTime = new Date().getTime();
+    let diff = fetch_otp.expireTime - currentTime;
+    if(diff < 0){
+      response.message = 'Token Expire'
+      response.statusText = 'error'
+      res.status(200).json(response);
+
+    }else{
+      User.findOne({ email:req.body.email }).then(user => {
+      if (user) {
+      console.log(user);
+      user.password = req.body.password;
+      console.log(user.password);
+      user.save();
+      response.message = 'Password Changed Successfully'
+      response.statusText = 'Success';
+      res.status(200).json(response);
+
+      }
+    });
+    }
+  }else{
+    response.message = 'Invalid Otp'
+    response.statusText = 'error'
+    res.status(200).json(response);
+
+  }
+  });
+}
+
+// module.exports = {
+//   emailSend,
+//   changePassword
+// }
+
 

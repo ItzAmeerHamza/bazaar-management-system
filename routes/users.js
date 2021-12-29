@@ -17,5 +17,10 @@ router.post('/login', userController.loginUser);
 // Logout
 router.get('/logout', userController.logout);
 
+// Change Password post request
+router.post('/change-password', userController.changePassword);
+
+// Send Email request
+router.post('/email-send', userController.emailSend);
 
 module.exports = router;
