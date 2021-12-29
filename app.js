@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require("mongoose");
 const passport = require("passport");// auth
 const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser'); // parser middleware
 const flash = require('connect-flash');
 const session = require('express-session');
 const LocalStrategy = require("passport-local").Strategy;
@@ -12,12 +13,25 @@ const bcrypt=require('bcrypt');
 //firebase Firestore.
 const multer = require("multer");
 const app = express()
-const port = 3000 
+const port = 3000
 
 const db = require('./config/database').mongoURI;
 mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
+
+
+  app.use(session({
+    secret: 'r8q,+&1LM3)CD*zAGpx1xm{NeQhc;#',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 60 * 60 * 1000 } // 1 hour
+  }));
+
+  // Configure Middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(passport.initialize());
+app.use(passport.session());
 
   app.use(cookieParser('secret'));
   app.use(session({
@@ -27,7 +41,8 @@ mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
     saveUninitialized: true,
     store: mongoStore.create({
       mongoUrl: 'mongodb://localhost:27017/TestDb'
-  })
+  }),
+    cookie: { maxAge: 60 * 60 * 1000 }
   }));
 
   app.use(passport.initialize());
@@ -50,5 +65,5 @@ app.use("/users", require("./routes/users.js"));
 
 
 app.listen(port || process.env.PORT, () => {
-  console.log(`Example app listening at http://localhost:${port}`, app.settings.env)
+  console.log(`Server running at http://localhost:${port}`, app.settings.env)
 });

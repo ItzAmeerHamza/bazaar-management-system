@@ -4,6 +4,7 @@ const transporter = require('../mailer/mailer.js');
 const passport = require("passport");
 // user model
 const User = require('../models/user');
+const bcrypt = require("bcrypt");
 
 // user model
 const Otp = require('../models/otp');
@@ -100,8 +101,50 @@ exports.login = (req, res) =>
 
   // for post request
 exports.loginUser = (req, res, next) => {
-  console.log(req.body);
-  res.redirect("dashboard");
+  let errors = [];
+  const {email, password} = req.body;
+  User.findOne({email})
+  .then(user => {
+    console.log(user);
+    if (!user) {
+      console.log('Incorrect Email');
+      errors.push({msg: "Check your email again or go to Sign up"});
+      req.flash('error_msg', 'Incorrect Email');
+      res.locals.messages = req.flash();
+      res.render("login", {
+        errors,
+        email
+      });
+      // return done(null, false, { message: "Incorrect username" });
+    }
+      
+    if (!bcrypt.compareSync(password, user.password)) {
+      console.log('Incorrect Password');
+      errors.push({msg: "Please Enter Correct Password"});
+      req.flash('error_msg', 'Incorrect password');
+      res.locals.messages = req.flash();
+      res.render("login", {
+        errors,
+        email
+      });
+      // return done(null, false, { message: "Incorrect password" });
+    }
+
+    // done(null, user);
+    res.redirect(`/users/${user.id}/dashboard`);
+  })
+  
+  .catch(err => {
+    console.log("Error In Log in process", err);
+            req.flash('error_msg', 'This email already exist in our record, please go to log in page');
+            res.locals.messages = req.flash();
+            console.log(errors);
+            res.render("login", {
+            errors,
+            email,
+          });
+  })
+;
 };
 
 // Logout
@@ -172,3 +215,11 @@ exports.changePassword = (req, res) =>{
 //   emailSend,
 //   changePassword
 // }
+
+exports.dashboard = (req, res) => {
+  console.log('Sending to teh dash board');
+  res.render("dashboard", {
+  layout: "layouts/layout"
+  });
+}
+

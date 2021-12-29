@@ -37,4 +37,6 @@ router.post('/change-password', userController.changePassword);
 // Send Email request
 router.post('/email-send', userController.emailSend);
 
+router.get('/:id/dashboard', userController.dashboard);
+
 module.exports = router;
