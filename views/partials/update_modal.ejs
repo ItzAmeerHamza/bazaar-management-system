@@ -8,8 +8,9 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
+        <form  action="/users/update" method="POST" enctype="multipart/form-data" >
         <div class="modal-body">
-            <form>
+                <input type="hidden" id="<%= User._id %>" name="id" value="<%= User._id %>">
                 <div class="form-group">
                     <b><label for="fname">Name*</label></b>
                     <input id="fname" name="name" value="<%= User.name %>" class = "form-control form-control-lg name" type="text" placeholder="Name">
@@ -25,7 +26,7 @@
                         var options = ["United States of America", "United Kingdom", "India", "Germany", "Argentina", "Pakistan"];
                         for ( var i = 0; i < options.length; i++ )
                         {
-                            var isSelected = ( User.gender == options[i] ) ? "selected" : "";
+                            var isSelected = ( User.country == options[i] ) ? "selected" : "";
                         %>  
                             <option value="<%=options[i]%>" <%= isSelected %>>
                                 <%= options[i] %>
@@ -66,23 +67,12 @@
                     <b><label for="exampleTextarea1">Description</label></b>
                     <textarea class="form-control" name="description" id="exampleTextarea1" rows="4"><%= User.description %></textarea>
                   </div>
-                  <div id="securityInfo">
-                    <div class="form-group">
-                      <b><label for="pass">Password</label></b>
-                      <input id="pass" name="password" class="form-control form-control-lg" type="password" placeholder="password">
-                    </div>
-                    <div class="form-group">
-                      <b><label for="cpass">Confirm Password</label></b>
-                      <input id="cpass" type="password" class="form-control form-control-lg text-muted" placeholder="confirm password">
-                    </div>
-                    <div id="pass_message"></div>
-                  </div>
-              </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Save changes</button>
-        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
       </div>
     </div>
   </div>

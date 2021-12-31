@@ -111,30 +111,35 @@ exports.registerUser = (req, res) => {
 
 
 
-exports.updateUser = (req, res) => {
-  const { name, email, password, country, gender, description, user_type = 'vendor' } = req.body;
-  let user_image;
-  if(req.file){
-    console.log(req.file.path);
-    user_image = req.file.path;
-  }
-  let errors = [];
-  console.log(name, email, password, country, gender, description, user_image, user_type );
-
-  User.findOne({ email: email, name: name }).then(user => {
-      if (user) {
-        console.log('User Found');
-        user.update()
-        errors.push({msg: "User already exist please go to sign in page"});
-        res.locals.messages = req.flash();
-        console.log(errors);
-
-        req.flash('error_msg', 'Your Account Already Exists, please log in to with your account');
-
-      }
-  });
+exports.updateStudent = async (req, res) => {
+  let result = await Student.updateOne(
+    { _id: req.params.id },
+    { $set: req.body }
+  );
+  if (!result)
+    return res.status(400).json({
+      err: `Oops something went wrong! Cannont update student with ${req.params.id}.`
+    });
+  req.flash("student_update_success_msg", "Student updated successfully");
+  res.redirect("/student/all");
 };
 
+
+exports.updateUser = async (req, res) => {
+
+  let result = await User.updateOne(
+    { _id: req.body.id },
+    { $set: req.body }
+  );
+
+  if(result){
+    req.flash('success', 'User Successfully updated');
+  }
+  else{
+    req.flash('error_msg', 'Error in updating user');
+  }
+  res.redirect("/dashboard");
+};
 
 
 // for get handle
@@ -151,53 +156,6 @@ exports.login = (req, res) =>
       failureFlash: true
     })(req, res, next);
   };
-
-  // for post request
-// exports.loginUser = (req, res, next) => {
-//   let errors = [];
-//   const {email, password} = req.body;
-//   User.findOne({email})
-//   .then(user => {
-//     console.log(user);
-//     if (!user) {
-//       console.log('Incorrect Email');
-//       errors.push({msg: "Check your email again or go to Sign up"});
-//       req.flash('error_msg', 'Incorrect Email');
-//       res.locals.messages = req.flash();
-//       res.render("login", {
-//         errors,
-//         email
-//       });
-//     }
-      
-//     if (!bcrypt.compareSync(password, user.password)) {
-//       console.log('Incorrect Password');
-//       errors.push({msg: "Please Enter Correct Password"});
-//       req.flash('error_msg', 'Incorrect password');
-//       res.locals.messages = req.flash();
-//       res.render("login", {
-//         errors,
-//         email
-//       });
-//     }
-
-//     // done(null, user);
-//     res.redirect(`/users/dashboard`);
-//     // res.render("dashboard");
-//   })
-  
-//   .catch(err => {
-//     console.log("Error In Log in process", err);
-//             req.flash('error_msg', 'This email already exist in our record, please go to log in page');
-//             res.locals.messages = req.flash();
-//             console.log(errors);
-//             res.render("login", {
-//             errors,
-//             email,
-//           });
-//   })
-// ;
-// };
 
 // Logout
 exports.logout = (req, res) => {

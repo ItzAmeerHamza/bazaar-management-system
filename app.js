@@ -6,6 +6,7 @@ const bodyParser = require('body-parser'); // parser middleware
 const flash = require('connect-flash');
 const session = require('express-session');
 const LocalStrategy = require("passport-local").Strategy;
+const toastr = require('express-toastr');
 
 const mongoStore = require('connect-mongo');
 const jwt=require('jsonwebtoken');
@@ -51,7 +52,7 @@ app.use(passport.session());
   app.use(passport.session());
 
   app.use(flash()); // use connect-flash for flash messages stored in session
-
+  app.use(toastr());
 
   // app.use(express.static(__dirname + '/public'));
   // app.use("/assets", express.static(__dirname + '/assets'));
