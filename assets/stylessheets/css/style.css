@@ -39,6 +39,8 @@
 /*-------------------------------------------------------------------*/
 /* === SCSS Compass Functions === */
 
+@import url('../node_modules/font-awesome/css/font-awesome.min.css');
+
 @-webkit-keyframes flash {
   0% {
     opacity: 1; }

@@ -1,6 +1,9 @@
 /*
  * Container style
  */
+
+ @import url('../node_modules/font-awesome/css/font-awesome.min.css');
+ 
 .ps {
   overflow: hidden !important;
   overflow-anchor: none;

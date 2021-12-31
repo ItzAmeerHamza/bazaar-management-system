@@ -20,6 +20,8 @@ mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
 
+  require("./config/passport")(passport);
+
 
   app.use(session({
     secret: 'r8q,+&1LM3)CD*zAGpx1xm{NeQhc;#',
@@ -49,6 +51,13 @@ app.use(passport.session());
   app.use(passport.session());
 
   app.use(flash()); // use connect-flash for flash messages stored in session
+
+
+  // app.use(express.static(__dirname + '/public'));
+  // app.use("/assets", express.static(__dirname + '/assets'));
+  // app.use("/assets", express.static(__dirname + '/assets'));
+  // app.use("/assets", express.static(__dirname + '/assets'));
+  app.use('/static', express.static(__dirname + '/assets'));
 
   app.use(express.static(__dirname + '/assets'));
   app.use(express.static(__dirname + '/mailer'));

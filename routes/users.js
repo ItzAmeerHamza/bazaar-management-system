@@ -5,7 +5,7 @@ const passport = require("passport");// auth
 
 // Load User Controller
 const userController = require('../controllers/user.controller')
-const { forwardAuthenticated } = require('../config/auth');
+const { ensureAuthenticated, forwardAuthenticated } = require("../config/auth");
 
 const storage = multer.diskStorage({
     destination: function(req, file, callback) {
@@ -18,12 +18,12 @@ const storage = multer.diskStorage({
 
   var upload = multer({storage: storage});
 
-router.get('/register', userController.register);
+router.get('/register', forwardAuthenticated, userController.register);
 // Register
 router.post('/register', upload.single('user_image'), userController.registerUser);
 
 // Login get request
-router.get('/login', userController.login);
+router.get('/login', forwardAuthenticated, userController.login);
 
 // Login post request
 router.post('/login', userController.loginUser);
@@ -37,6 +37,14 @@ router.post('/change-password', userController.changePassword);
 // Send Email request
 router.post('/email-send', userController.emailSend);
 
-router.get('/:id/dashboard', userController.dashboard);
+
+router.get("/dashboard", ensureAuthenticated, (req, res) =>
+  res.render("dashboard", {
+    user: req.user,
+    layout: "layouts/layout"
+  })
+);
+
+router.get('/dashboard', userController.dashboard);
 
 module.exports = router;
