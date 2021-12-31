@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Connect Plus</title>
+    <title>eBazzar</title>
     <!-- <title>Sign up Form</title> -->
     <link rel="form icon" type="image/x-icon" href="favicon.png">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -30,6 +30,7 @@
           <div class="row flex-grow">
             <div class="col-lg-4 mx-auto">
               <div class="auth-form-light text-left p-5">
+                <a class="btn btn-primary text-black" href="/">Back</a>
                 <div align="center" class="brand-logo">
                   <img style="height: 25%; width: 25%;" src="../images/bazaar-logo.jpg">
                 </div>
@@ -68,20 +69,57 @@
             </div>
           </div>
         </div>
-        <!-- content-wrapper ends -->
       </div>
-      <!-- page-body-wrapper ends -->
+      <!-- content-wrapper ends -->
     </div>
-    <!-- container-scroller -->
-    <!-- plugins:js -->
-    <script src="../js/vendor.bundle.base.js"></script>
-    <!-- endinject -->
-    <!-- Plugin js for this page -->
-    <!-- End plugin js for this page -->
-    <!-- inject:js -->
-    <script src="../js/off-canvas.js"></script>
-    <script src="../js/hoverable-collapse.js"></script>
-    <script src="../js/misc.js"></script>
-    <!-- endinject -->
-  </body>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script src="../js/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page -->
+  <!-- End plugin js for this page -->
+  <!-- inject:js -->
+  <script src="../js/off-canvas.js"></script>
+  <script src="../js/hoverable-collapse.js"></script>
+  <script src="../js/misc.js"></script>
+  <!-- endinject -->
+</body>
+
 </html>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script type="text/javascript">
+  $('#pass, #cpass').on('keyup', function () {
+    if ($('#pass').val() == $('#cpass').val()) {
+      $('#pass_message').html('<img src="https://img.icons8.com/emoji/48/000000/check-mark-emoji.png"/><h4 style="color: green;">Password Matched</h4>');
+    }
+    else {
+      $('#pass_message').html('<img src="https://img.icons8.com/emoji/50/000000/cross-mark-emoji.png"/><h4 style="color: red;">Kindly Match The Password</h4>');
+    }
+  });
+
+
+  $("#submitBtn").click(function () {
+    var email = $("#exampleInputEmail1").val();
+    var pass = $("#exampleInputPassword1").val();
+    if (email == '' || pass == '') {
+      swal({
+        title: "Fields Empty",
+        text: "Check the missing fields!!",
+        icon: "warning",
+        button: "OK",
+      });
+    }
+    else {
+      swal({
+        title: "Success",
+        text: "Data Submitted!!",
+        icon: "success",
+        button: "OK",
+      });
+      req.send();
+    }
+  });
+</script>

@@ -17,7 +17,7 @@
     <!-- Layout styles -->
     <link rel="stylesheet" href="../stylessheets/css/style.css">
     <!-- End layout styles -->
-    <link rel="shortcut icon" href="../images/shopping_bags.png" />
+    <link href="../images/favicon.png" rel="icon">
     <link rel="form icon" type="image/x-icon" href="favicon.png">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
@@ -28,6 +28,7 @@
           <div class="row flex-grow">
             <div class="col-lg-4 mx-auto">
               <div class="auth-form-light text-left p-5">
+                <a class="btn btn-primary text-black" href="/">Back</a>
                 <div align="center" class="brand-logo">
                   <img style="height: 25%; width: 25%;" src="../images/bazaarLogo.jpg">
                 </div>
@@ -123,16 +124,42 @@
   </body>
 </html>
 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript">
-  $('#pass, #cpass').on('keyup', function (){
-    if ($('#pass').val() == $('#cpass').val())
-    {
-       $('#pass_message').html('<img src="/public/success.png"><h4 style="color: green;">Password Matched</h4>');
+  $('#pass, #cpass').on('keyup', function () {
+    if ($('#pass').val() == $('#cpass').val()) {
+      $('#pass_message').html('<img src="https://img.icons8.com/emoji/48/000000/check-mark-emoji.png"/><h4 style="color: green;">Password Matched</h4>');
     }
-    else
-    {
-      $('#pass_message').html('<img src="/public/failuer.png"><h4 style="color: red;">Kindly Match The Password</h4>');
+    else {
+      $('#pass_message').html('<img src="https://img.icons8.com/emoji/50/000000/cross-mark-emoji.png"/><h4 style="color: red;">Kindly Match The Password</h4>');
     }
+  });
 
+
+  $("#submitBtn").click(function () {
+    var name = $("#fname").val();
+    var email = $("#email").val();
+    var pass = $("#pass").val();
+    var confirmPass = $("#cpass").val();
+    var country = $("#country").val();
+    var gender = $("#exampleSelectGender").val();
+    var description = $("#exampleTextarea1").val();
+    if (name == '' || email == '' || pass == '' || confirmPass == '' || country == '' || gender == '' || description == '') {
+      swal({
+        title: "Fields Empty",
+        text: "Check the missing fields!!",
+        icon: "warning",
+        button: "OK",
+      });
+    }
+    else {
+      swal({
+        title: "Success",
+        text: "Data Submitted!!",
+        icon: "success",
+        button: "OK",
+      });
+      req.send();
+    }
   });
 </script>

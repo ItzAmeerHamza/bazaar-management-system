@@ -241,3 +241,12 @@ exports.dashboard = (req, res) => {
   });
 }
 
+/*exports.homepage = (req, res) =>
+res.render("home", {
+  layout: "layouts/layout"
+});
+
+exports.homepageBack = (req, res, next) => {
+  console.log(req.body);
+  res.redirect("home");
+};*/
