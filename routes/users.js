@@ -31,6 +31,8 @@ router.post('/login', userController.loginUser);
 // Logout
 router.get('/logout', userController.logout);
 
+router.patch('/update', upload.single('user_image'), userController.updateUser);
+
 // Change Password post request
 router.post('/change-password', userController.changePassword);
 
@@ -44,7 +46,5 @@ router.get("/dashboard", ensureAuthenticated, (req, res) =>
     layout: "layouts/layout"
   })
 );
-
-router.get('/dashboard', userController.dashboard);
 
 module.exports = router;

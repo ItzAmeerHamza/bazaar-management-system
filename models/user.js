@@ -21,6 +21,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  gender: {
+    type: String,
+    required: true
+  },
   description: {
     type: String,
     required: false
@@ -33,7 +37,15 @@ const UserSchema = new mongoose.Schema({
     type: String,
     enum : ['admin','vendor'],
     default: 'admin'
-    }
+    },
+  active:{
+    type: Boolean,
+    default: false
+    },
+    shops:[{
+      type: mongoose.Types.ObjectId,
+      ref: "Shop"
+    }]
 });
 
 UserSchema.pre('save',function(next){

@@ -19,8 +19,10 @@ exports.register = (req, res) => {
 
   // handles the post request
 exports.registerUser = (req, res) => {
-    const { name, email, password, country, gender, user_image, description, user_type = 'vendor' } = req.body;
+    const { name, email, password, country, gender, description, user_type = 'vendor' } = req.body;
+    let user_image;
     if(req.file){
+      console.log(req.file.path);
       user_image = req.file.path;
     }
     let errors = [];
@@ -94,6 +96,34 @@ exports.registerUser = (req, res) => {
     });
 };
 
+
+
+exports.updateUser = (req, res) => {
+  const { name, email, password, country, gender, description, user_type = 'vendor' } = req.body;
+  let user_image;
+  if(req.file){
+    console.log(req.file.path);
+    user_image = req.file.path;
+  }
+  let errors = [];
+  console.log(name, email, password, country, gender, description, user_image, user_type );
+
+  User.findOne({ email: email, name: name }).then(user => {
+      if (user) {
+        console.log('User Found');
+        user.update()
+        errors.push({msg: "User already exist please go to sign in page"});
+        res.locals.messages = req.flash();
+        console.log(errors);
+
+        req.flash('error_msg', 'Your Account Already Exists, please log in to with your account');
+
+      }
+  });
+};
+
+
+
 // for get handle
 exports.login = (req, res) =>
   res.render("login", {
@@ -159,6 +189,7 @@ exports.login = (req, res) =>
 // Logout
 exports.logout = (req, res) => {
   req.logout();
+  req.session.destroy();
   console.log("You are logged out");
   res.redirect("/users/login");
 };

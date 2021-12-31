@@ -27,7 +27,7 @@ mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
     secret: 'r8q,+&1LM3)CD*zAGpx1xm{NeQhc;#',
     resave: false,
     saveUninitialized: true,
-    cookie: { maxAge: 60 * 60 * 1000 } // 1 hour
+    cookie: { maxAge: 60 * 60 * 1000 * 1000 } // 1 hour
   }));
 
   // Configure Middleware
@@ -62,7 +62,7 @@ app.use(passport.session());
   app.use(express.static(__dirname + '/assets'));
   app.use(express.static(__dirname + '/mailer'));
 
-  app.use(express.static(__dirname + '/public'));
+  app.use(express.static(__dirname + './public'));
   // templating engine
   app.set('view engine', 'ejs');
   // urls

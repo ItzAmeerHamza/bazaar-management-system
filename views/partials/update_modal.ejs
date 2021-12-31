@@ -1,0 +1,88 @@
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Update Profile <%= User.name %></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-group">
+                    <b><label for="fname">Name*</label></b>
+                    <input id="fname" name="name" value="<%= User.name %>" class = "form-control form-control-lg name" type="text" placeholder="Name">
+                </div>
+                <div class="form-group">
+                    <b><label for="email">Email*</label></b>
+                    <input id="email" class="form-control form-control-lg" value="<%= User.email %>" name="email" type="email" placeholder="abc@abctest.com">
+                </div>
+                <div class="form-group">
+                    <b><label for="country">Country</label></b>
+                    <select class="form-control form-control-lg" name="country" id="country">
+                        <%
+                        var options = ["United States of America", "United Kingdom", "India", "Germany", "Argentina", "Pakistan"];
+                        for ( var i = 0; i < options.length; i++ )
+                        {
+                            var isSelected = ( User.gender == options[i] ) ? "selected" : "";
+                        %>  
+                            <option value="<%=options[i]%>" <%= isSelected %>>
+                                <%= options[i] %>
+                            </option>
+                        <%
+                        }
+                        %>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <b><label for="exampleSelectGender">Gender</label></b>
+                    <select class="form-control" name="gender" id="exampleSelectGender">
+                        <%
+                        var options = ["Male", "Female"];
+                        for ( var i = 0; i < options.length; i++ )
+                        {
+                            var isSelected = ( User.gender == options[i] ) ? "selected" : "";
+                        %>  
+                            <option value="<%=options[i]%>" <%= isSelected %>>
+                                <%= options[i] %>
+                            </option>
+                        <%
+                        }
+                        %>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>File upload</label>
+                    <input type="file" name="user_image" class="file-upload-default">
+                    <div class="input-group col-xs-12">
+                      <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
+                      <span class="input-group-append">
+                        <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <b><label for="exampleTextarea1">Description</label></b>
+                    <textarea class="form-control" name="description" id="exampleTextarea1" rows="4"><%= User.description %></textarea>
+                  </div>
+                  <div id="securityInfo">
+                    <div class="form-group">
+                      <b><label for="pass">Password</label></b>
+                      <input id="pass" name="password" class="form-control form-control-lg" type="password" placeholder="password">
+                    </div>
+                    <div class="form-group">
+                      <b><label for="cpass">Confirm Password</label></b>
+                      <input id="cpass" type="password" class="form-control form-control-lg text-muted" placeholder="confirm password">
+                    </div>
+                    <div id="pass_message"></div>
+                  </div>
+              </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
