@@ -11,11 +11,24 @@ const Otp = require('../models/otp');
 // const otp = require('../models/opt.js');./
 
 //Handles the get request
-exports.register = (req, res) => {
+
+exports.forget_password = (req, res) =>
+  res.render("forget_password", {locale: {"name": '', "email": ''},
+    layout: "layouts/layout"
+  });
+
+//Handles the get request
+exports.reset_password = (req, res) =>
+  res.render("reset_password", {locale: {"name": '', "email": ''},
+    layout: "layouts/layout"
+  });
+
+//Handles the get request
+exports.register = (req, res) =>
   res.render("register", {locale: {"name": '', "email": ''},
     layout: "layouts/layout"
   });
-}
+
 
   // handles the post request
 exports.registerUser = (req, res) => {
@@ -205,56 +218,62 @@ exports.emailSend = (req, res) =>{
         expireTime: new Date().getTime() + 300*1000
       })
       let otpResponse =  otpData.save();
+      //OTP email
+      const options = {
+        from: process.env.AUTH_USER,
+        to: req.body.email,
+        subject: "Reset Password Confirmation",
+        text: "We Recieved Your Request For Password Reset. Your OTP IS "+ optcode
+      };
+      transporter.sendMail(options,  function(err, info){
+        if(err){
+          console.log(err);
+          return;
+        }
+        console.log("sent:" + info.response);
+      });
       responseType.statusText = 'Success'
       responseType.message = 'Please Check Your Email ID';
+      res.redirect("/users/reset_password");
     }else{
-      responseType.statusText = 'error'
-      responseType.message = 'Email ID Not Exist';
+
+      req.flash('error_msg', 'Email ID Not Exist');
+      res.locals.messages = req.flash();
+      res.render("forget_password");
     }
-    res.status(200).json(responseType);
   });
 }
 
 exports.changePassword = (req, res) =>{
-  // let data = Otp.find({email:req.body.email, code: req.body.otpCode});
   const  response = {}
-
   Otp.findOne({ email: req.body.email, code: req.body.otpCode}).then(fetch_otp => {
-  if(fetch_otp){
-    let currentTime = new Date().getTime();
-    let diff = fetch_otp.expireTime - currentTime;
-    if(diff < 0){
-      response.message = 'Token Expire'
-      response.statusText = 'error'
-      res.status(200).json(response);
-
-    }else{
-      User.findOne({ email:req.body.email }).then(user => {
-      if (user) {
-      console.log(user);
-      user.password = req.body.password;
-      console.log(user.password);
-      user.save();
-      response.message = 'Password Changed Successfully'
-      response.statusText = 'Success';
-      res.status(200).json(response);
-
+    if(fetch_otp){
+      let currentTime = new Date().getTime();
+      let diff = fetch_otp.expireTime - currentTime;
+      if(diff < 0){
+        req.flash('error_msg', 'OTP Expired');
+        res.locals.messages = req.flash();
+        res.render("reset_password");
+      }else{
+        User.findOne({ email:req.body.email }).then(user => {
+        if (user) {
+          console.log(user);
+          user.password = req.body.password;
+          console.log(user.password);
+          user.save();
+          response.message = 'Password Changed Successfully'
+          response.statusText = 'Success';
+          res.redirect("/users/login");
+        }
+        });
       }
-    });
+    }else{
+      req.flash('error_msg', 'Invalid OTP');
+      res.locals.messages = req.flash();
+      res.render("reset_password");
     }
-  }else{
-    response.message = 'Invalid Otp'
-    response.statusText = 'error'
-    res.status(200).json(response);
-
-  }
   });
 }
-
-// module.exports = {
-//   emailSend,
-//   changePassword
-// }
 
 exports.dashboard = (req, res) => {
   // console.log('Sending to teh dash board');

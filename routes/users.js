@@ -47,4 +47,10 @@ router.get("/dashboard", ensureAuthenticated, (req, res) =>
   })
 );
 
+router.get('/forget_password', userController.forget_password);
+// Forget Password
+
+router.get('/reset_password', userController.reset_password);
+// Forget Password
+
 module.exports = router;
