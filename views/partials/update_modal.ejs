@@ -2,14 +2,14 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header bg-white">
           <h5 class="modal-title" id="exampleModalLabel">Update Profile <%= User.name %></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <form  action="/users/update" method="POST" enctype="multipart/form-data" >
-        <div class="modal-body">
+        <div class="modal-body bg-white">
                 <input type="hidden" id="<%= User._id %>" name="id" value="<%= User._id %>">
                 <div class="form-group">
                     <b><label for="fname">Name*</label></b>
@@ -68,7 +68,7 @@
                     <textarea class="form-control" name="description" id="exampleTextarea1" rows="4"><%= User.description %></textarea>
                   </div>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer bg-white">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save changes</button>
                 </div>

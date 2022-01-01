@@ -32,6 +32,6 @@ const ShopSchema = new mongoose.Schema({
     }
 });
 
-const Car = mongoose.model('Car', UserSchema);
+const Shop = mongoose.model('Sahop', ShopSchema);
 
-module.exports = Car;
+module.exports = Shop;

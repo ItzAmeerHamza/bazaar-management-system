@@ -233,20 +233,23 @@ exports.changePassword = (req, res) =>{
   });
 }
 
-exports.dashboard = (req, res) => {
+exports.root = (req, res) => {
+
+  User.find({}).then(data => {
+    if(data){
+      console.log(data);
+      res.render('home', {layout: "layouts/layout",
+          users: data
+       });
+    }
+    else{
+      console.log('Error in fetching records');
+    }
+  })
+};
+
+
+
   // console.log('Sending to teh dash board');
-  console.log(req.session.user);
-  res.render("dashboard", {
-  layout: "layouts/layout"
-  });
-}
-
-/*exports.homepage = (req, res) =>
-res.render("home", {
-  layout: "layouts/layout"
-});
-
-exports.homepageBack = (req, res, next) => {
-  console.log(req.body);
-  res.redirect("home");
-};*/
+  // console.log(User.find({}));
+  // res.render("home", {layout: "layouts/layout" })

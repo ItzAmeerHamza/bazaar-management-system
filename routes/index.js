@@ -1,11 +1,11 @@
 const express = require("express");
-const router = express.Router();
-const { ensureAuthenticated, forwardAuthenticated } = require("../config/auth");
 
-// The first page
-router.get("/", function(req, res){
-  res.render("home", { layout: "layouts/layout" })
-});
+const router = express.Router();
+const User = require('../models/user');
+const { ensureAuthenticated, forwardAuthenticated } = require("../config/auth");
+const userController = require('../controllers/user.controller')
+
+router.get('/', userController.root);
 
 router.get("/dashboard", ensureAuthenticated, (req, res) =>
   res.render("dashboard", {
