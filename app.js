@@ -38,7 +38,6 @@ app.use(passport.session());
 
   app.use(cookieParser('secret'));
   app.use(session({
-    cookie: { maxAge: 60000 },
     secret: process.env.MY_SECRET || "secret",
     resave: true,
     saveUninitialized: true,
