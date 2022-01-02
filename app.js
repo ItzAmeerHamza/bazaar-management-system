@@ -13,6 +13,7 @@ const jwt=require('jsonwebtoken');
 const bcrypt=require('bcrypt');
 //firebase Firestore.
 const multer = require("multer");
+passportLocalMongoose = require("passport-local-mongoose")
 const app = express()
 const port = 3000
 
@@ -21,7 +22,8 @@ mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
 
-  require("./config/passport")(passport);
+const User = require('./models/user');
+require("./config/passport")(passport);
 
 
   app.use(session({
@@ -35,6 +37,11 @@ mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
+
+// passport.use(new localStrategy(User.authenticate()));
+// passport.serializeUser(User.serializeUser());
+// passport.deserializeUser(User.deserializeUser());
+
 
   app.use(cookieParser('secret'));
   app.use(session({
@@ -52,6 +59,15 @@ app.use(passport.session());
 
   app.use(flash()); // use connect-flash for flash messages stored in session
   app.use(toastr());
+
+//   passport.use(new localStrategy(User.authenticate()));
+// passport.serializeUser(User.serializeUser());
+// passport.deserializeUser(User.deserializeUser());
+
+  app.use(function(req,res,next){
+    res.locals.currentUser = req.user;
+    next();
+  });
 
   // app.use(express.static(__dirname + '/public'));
   // app.use("/assets", express.static(__dirname + '/assets'));
@@ -71,8 +87,6 @@ app.use(passport.session());
 app.use("/", require("./routes/index.js"));
 app.use("/users", require("./routes/users.js"));
 app.use("/shops", require("./routes/shops.js"));
-
-
 
 app.listen(port || process.env.PORT, () => {
   console.log(`Server running at http://localhost:${port}`, app.settings.env)

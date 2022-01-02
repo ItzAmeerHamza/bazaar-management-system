@@ -21,12 +21,14 @@
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../images/favicon.png" />
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/css/toastr.min.css">
-
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/duotone.css" integrity="sha384-R3QzTxyukP03CMqKFe0ssp5wUvBPEyy9ZspCB+Y01fEjhMwcXixTyeot+S40+AjZ" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/fontawesome.css" integrity="sha384-eHoocPgXsiuZh+Yy6+7DsKAerLXyJmu2Hadh4QYyt+8v86geixVYwFqUvMU8X90l" crossorigin="anonymous"/>
   </head>
   <body>
     <div class="container-scroller">
       <!-- partial:partials/_navbar.html -->
-      <% include ("partials/nav_bar", {user:user}) %>
+      <%- include ("partials/nav_bar", {user:user}) %>
       <!-- partial -->
       <div class="container-fluid page-body-wrapper">
         <!-- partial:partials/_sidebar.html -->
@@ -42,7 +44,7 @@
                   <button type="button" class="btn purchase-button" data-toggle="modal" data-target="#exampleModal">
                     Update Profile
                   </button>
-                  <i class="mdi mdi-close" id="bannerClose"></i>
+                  <i class="fas fa-times" id="bannerClose"></i>
                 </span>
               </div>
             </div>
