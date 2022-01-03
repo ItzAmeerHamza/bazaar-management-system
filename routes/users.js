@@ -53,4 +53,13 @@ router.get('/forget_password', userController.forget_password);
 router.get('/reset_password', userController.reset_password);
 // Forget Password
 
+router.get('/active_vendors', userController.active_vendors);
+// Active Vendors
+
+router.get('/non_active_vendors', userController.non_active_vendors);
+// Active Vendors
+
+//wait 1 min do mujha idr hi rahna ok
+router.get('/activate_vendor', userController.activate_vendor);
+//Activate Vendor
 module.exports = router;

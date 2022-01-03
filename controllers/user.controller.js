@@ -248,6 +248,54 @@ exports.root = (req, res) => {
   })
 };
 
+exports.active_vendors = (req, res) => {
+  User.find({active: true}).then(data => {
+    console.log('data : ', data);
+    if(data){
+      res.render('vendors/active_vendors', {layout: "layouts/layout",
+          vendors: data
+       });
+    }
+    else{
+      console.log('Error in fetching records');
+    }
+  })
+};
+
+
+exports.non_active_vendors = (req, res) => {
+  User.find({active: false}).then(data => {
+    console.log('data : ', data);
+    if(data){
+      res.render('vendors/non_active_vendors', {layout: "layouts/layout",
+          vendors: data
+       });
+    }
+    else{
+      console.log('Error in fetching records');
+    }
+  })
+};
+
+// sai hah :)
+
+exports.activate_vendor = (req, res) => {
+  console.log( req.query.vendor);
+  User.findOne({_id:req.query.vendor }).then(user => {
+    if (user) {
+      user.active = true;
+      user.save();
+      console.log(user);
+      console.log('Successfully Activated User');
+      res.redirect("/users/non_active_vendors");
+
+    } else{
+      console.log('Error in fetching records');
+      res.redirect("/users/non_active_vendors");
+
+    }
+  })
+};
 
 
   // console.log('Sending to teh dash board');
