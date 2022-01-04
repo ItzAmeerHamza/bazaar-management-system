@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const User = require('../models/user');
+const Product = require('../models/product');
 
 const ShopSchema = new mongoose.Schema({
   name: {
@@ -30,7 +31,11 @@ const ShopSchema = new mongoose.Schema({
     owner:{
       type: mongoose.Types.ObjectId,
       ref: "User"
-    }
+    },
+    products:[{
+      type: mongoose.Types.ObjectId,
+      ref: "Product"
+    }]
 });
 
 const Shop = mongoose.model('Shop', ShopSchema);

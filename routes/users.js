@@ -4,7 +4,7 @@ const multer = require('multer');
 const passport = require("passport");// auth
 
 // Load User Controller
-const userController = require('../controllers/user.controller')
+const userController = require('../controllers/user.controller');
 const { ensureAuthenticated, forwardAuthenticated } = require("../config/auth");
 
 const storage = multer.diskStorage({
@@ -59,7 +59,6 @@ router.get('/active_vendors', userController.active_vendors);
 router.get('/non_active_vendors', userController.non_active_vendors);
 // Active Vendors
 
-//wait 1 min do mujha idr hi rahna ok
 router.get('/activate_vendor', userController.activate_vendor);
 //Activate Vendor
 module.exports = router;

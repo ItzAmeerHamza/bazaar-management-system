@@ -34,7 +34,8 @@ require("./config/passport")(passport);
   }));
 
   // Configure Middleware
-app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(express.json());
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -82,7 +83,7 @@ app.use(passport.session());
   // templating engine
   app.set('view engine', 'ejs');
   // urls
-  app.use(express.urlencoded({ extended: true }));
+  app.use(express.urlencoded({ extended: false }));
 // routes
 app.use("/", require("./routes/index.js"));
 app.use("/users", require("./routes/users.js"));

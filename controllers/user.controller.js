@@ -8,7 +8,6 @@ const bcrypt = require("bcrypt");
 
 // user model
 const Otp = require('../models/otp');
-// const otp = require('../models/opt.js');./
 
 //Handles the get request
 
@@ -108,8 +107,6 @@ exports.registerUser = (req, res) => {
         }
     });
 };
-
-
 
 exports.updateStudent = async (req, res) => {
   let result = await Student.updateOne(
@@ -277,8 +274,6 @@ exports.non_active_vendors = (req, res) => {
   })
 };
 
-// sai hah :)
-
 exports.activate_vendor = (req, res) => {
   console.log( req.query.vendor);
   User.findOne({_id:req.query.vendor }).then(user => {
@@ -296,8 +291,3 @@ exports.activate_vendor = (req, res) => {
     }
   })
 };
-
-
-  // console.log('Sending to teh dash board');
-  // console.log(User.find({}));
-  // res.render("home", {layout: "layouts/layout" })
